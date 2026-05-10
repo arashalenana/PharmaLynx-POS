@@ -20,9 +20,8 @@ date_default_timezone_set('Africa/Nairobi');
 
 // Image Generation (Pollinations.ai) 
 function generateMedicineImage($medicineName) {
-    $prompt = "A clean, professional pharmaceutical product photo of " . $medicineName
-            . " medicine. White background, studio lighting, high quality, realistic packaging, "
-            . "pharmacy product display style. No text overlay.";
+    $prompt = "A pharmaceutical product photo of " . $medicineName
+            . " medicine.";
 
     // URL-encode the prompt for the API
     $encoded_prompt = urlencode($prompt);
@@ -62,7 +61,7 @@ function getExternalMedicineInfo($medicineName) {
             $info['details'] = [
                 'brand'        => $drug['proprietary_name'] ?? $medicineName,
                 'generic_name' => $drug['nonproprietary_name'] ?? 'Information not available',
-                'manufacturer' => implode(', ', (array)($drug['sponsor_name'] ?? [])) ?: 'Not listed',
+                'manufacturer' => $drug['sponsor_name'] ?? 'Information not available',
                 'approvals'    => count($drug['applications'] ?? []),
                 'route'        => $drug['applications'][0]['products'][0]['dosage_form'] ?? 'Not specified'
             ];
@@ -488,7 +487,7 @@ try {
                     $response .= "&#10003; Stock Levels &amp; Reorder Needs\n";
                     $response .= "&#10003; Expiry Dates &amp; Alerts\n";
                     $response .= "&#10003; Complete Medicine List\n";
-                    $response .= "&#10003; AI Medicine Images (e.g. 'show image of Panadol')\n\n";
+                    $response .= "&#10003; AI Medicine Images (e.g. 'show image of Amoxicillin')\n\n";
                     $response .= "&#128161; JUST ASK:\n";
                     $response .= "&#8226; Type a medicine name (e.g., 'Aspirin')\n";
                     $response .= "&#8226; 'Show all medicines' - Complete inventory\n";
