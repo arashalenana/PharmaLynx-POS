@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 require_once '../config/db.php';
 
-// Timezone is already synchronized to EAT in config/db.php
+// Validate Prescription ID
 
 if (!isset($_GET['id'])) {
     die("Prescription ID is required.");
